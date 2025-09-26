@@ -9,12 +9,17 @@ import iptraitment
 choix = 0
 
 while (choix != 4 ) : 
-    print("Welcome to the TCP scanner :)")
-    print("""Choisissez une option :
-                1- Scanner une cyble sur le port 1 à 1024 
-                2- Scanner une cyble sur une plage port définie
-                3- Scanner une cyble sur un port définie
-                4- Fermer le programme  
+    print("""
+          -------------------------------------------------------------------------------------
+          -                      --- Welcome to the TCP scanner :) ---                        -
+          -                                                                                   -
+          -    Choisissez une option :                                                        -
+          -              1- Scanner une cyble sur le port 1 à 1024                            -
+          -              2- Scanner une cyble sur une plage port définie                      -
+          -              3- Scanner une cyble sur un port définie                             -
+          -              4- Fermer le programme                                               - 
+          -                                                                                   -
+          -------------------------------------------------------------------------------------
         """)
 
     choix = int(input("Entrez votre choix (1,2,3,4) : "))
