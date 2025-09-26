@@ -1,4 +1,5 @@
 import socket
 
-def scanner(target, start_port = 0, end_port = 1024):
+def mysocket(target):
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     return
