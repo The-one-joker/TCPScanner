@@ -3,11 +3,8 @@
 # Author: Romane Lesueur, Lucas Aubriet
 #######################################################
 
-import socket
 import re
-
-#def scanner(target :str, start_port :int, end_port :int):
-
+import scanner
 
 pattern = r'^((25[0-4]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){3}(25[0-4]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$'
 
