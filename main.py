@@ -3,24 +3,47 @@
 # Author: Romane Lesueur, Lucas Aubriet
 #######################################################
 
-import re
 import scanner
+import iptraitment
 
-pattern = r'^((25[0-4]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){3}(25[0-4]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$'
+choix = 0
 
-print("Welcome to the TCP scanner :)")
-target = str(input("Enter the target IP address: "))
+while (choix != 4 ) : 
+    print("Welcome to the TCP scanner :)")
+    print("""Choisissez une option :
+                1- Scanner une cyble sur le port 1 à 1024 
+                2- Scanner une cyble sur une plage port définie
+                3- Scanner une cyble sur un port définie
+                4- Fermer le programme  
+        """)
 
-if re.fullmatch(pattern, target):
-    print(f"'{target}' est une IP valide !")
-else:
-    print(f"'{target}' n'est pas une IP valide.")
+    choix = int(input("Entrez votre choix (1,2,3,4) : "))
 
-answer = str(input("Do you want scan port 0 to 1024 ? (y/n) :"))
-
-if (answer == "y"):
-    scanner(target, 0, 1024)
-elif answer == "n":
-    port_range = str(input("Enter the port range (e.g., 20-80) :"))
-    start_port, end_port = map(int, port_range.split('-'))
-    scanner(target, start_port, end_port)
+    if 1 <= choix <= 3 :
+        target = input("Saisissez adresse IP cible : ")
+        if not iptraitment:
+            print("IP incorrecte")
+            break
+    
+    match choix :
+        case 1:
+            scanner.scanner(target)
+        case 2 :
+            start_port = int(input("Saisissez le premier port à scanner : "))
+            end_port = int(input("Saisissez le dernier port à scanner : "))
+            if start_port > end_port or not (1 <= start_port <= 65535) or not (1 <= end_port <= 65535):
+                print("Ports non valides")
+                break
+            scanner.scanner(target, start_port, end_port)
+        case 3 : 
+            port = int(input("Saisissez le port à scanner : "))
+            if not (1 <= port <= 65535):
+                print("Port non valide")
+                break
+            scanner.scanner(target, port, port)
+        case 4 : 
+            print("Biz 😘")
+            break
+        case _ : 
+            print("Choix non valide")
+            break
