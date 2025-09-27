@@ -7,8 +7,17 @@ import socket
 import signal
 import sys
 
-target = "192.168.1.100"  # Remplace par l'adresse IP cible
+# Vérifier qu'un argument a été fourni
+if len(sys.argv) != 2:
+    print("Usage: python main.py <adresse_ip>")
+    print("Exemple: python main.py 192.168.1.1")
+    sys.exit(1)
+
+target = sys.argv[1]  # Récupère l'adresse IP depuis les arguments
 openned_ports = []
+
+print(f"Démarrage du scan TCP sur {target}...")
+print("Appuyez sur Ctrl+C pour interrompre le scan\n")
 
 def signal_handler(sig, frame):
     print("\n\nScan interrompu par l'utilisateur (Ctrl+C).")
