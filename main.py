@@ -12,7 +12,8 @@ openned_ports = []
 
 def signal_handler(sig, frame):
     print("\n\nScan interrompu par l'utilisateur (Ctrl+C).")
-    print("Ports ouverts trouvés jusqu'à présent :", openned_ports)
+    print("Ports ouverts trouvés jusqu'à présent :")
+    print("--> Port ", openned_ports, " is open")
     sys.exit(0)  # Quitte le programme proprement
 
 # Associe la fonction signal_handler au signal SIGINT (Ctrl+C)
@@ -20,6 +21,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 for port in range(400, 444):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        print("Scanning")
         s.settimeout(0.25)
         try:
             s.connect((target, port))
@@ -28,4 +30,5 @@ for port in range(400, 444):
         except (ConnectionRefusedError, socket.timeout, Exception):
             pass  # Ignore silencieusement les erreurs
 
-print("\nScan terminé. Ports ouverts :", openned_ports)
+print("\nScan terminé :")
+print("--> Port ", openned_ports, " is open")
