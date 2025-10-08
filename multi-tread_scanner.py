@@ -27,8 +27,8 @@ lock = threading.Lock() # Verrou pour la gestion thread-safe des accès à openn
 def validate_arguments():
     """Valide les arguments passés en ligne de commande et indique à l'utilisateur le format attendu."""
     if len(sys.argv) != 2: # sys.argv est une liste contenant les arguments passés en ligne de commande. Le premier [0] est le nom du fichier et le deuxième [1] est l'argument attendu
-        print("Usage: python main.py <adresse_ip>")
-        print("Exemple: python main.py 192.168.1.1")
+        print("Usage: python multi-tread_scanner.py <adresse_ip>")
+        print("Exemple: python multi-tread_scanner.py 192.168.1.1")
         sys.exit(2) # Terminer le programme avec un code d'erreur 2 (erreur d'usage)
     return sys.argv[1]
 
