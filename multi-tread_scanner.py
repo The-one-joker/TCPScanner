@@ -13,8 +13,8 @@ import threading
 
 
 # ========== CONFIGURATION ==========
-DEFAULT_PORT_RANGE = (1, 1024) # Scan des well-known ports (les ports "connus")
-DEFAULT_TIMEOUT = 1.0 # Temps de timeout pour chaque tentative de connexion
+DEFAULT_PORT_RANGE = (1, 1023) # Scan des well-known ports (les ports "connus")
+DEFAULT_TIMEOUT = 0.25 # Temps de timeout pour chaque tentative de connexion
 MAX_WORKERS = 50 # Nombre maximum de threads exécuités simultanément
 
 
@@ -29,8 +29,19 @@ def validate_arguments():
     if len(sys.argv) != 2: # sys.argv est une liste contenant les arguments passés en ligne de commande. Le premier [0] est le nom du fichier et le deuxième [1] est l'argument attendu
         print("Usage: python multi-tread_scanner.py <adresse_ip>")
         print("Exemple: python multi-tread_scanner.py 192.168.1.1")
+        print("Exemple: python multi-tread_scanner.py Google.com")
         sys.exit(2) # Terminer le programme avec un code d'erreur 2 (erreur d'usage)
     return sys.argv[1]
+
+
+def validate_hostname(target):
+    """Vérifier que le nom d'hôte et l'IP sont valide"""
+    try : 
+        socket.gethostbyname(target) # résout un hostname en adresse IP
+        return True
+    except socket.error as e:
+        print(f"Adresse IP ou nom d'hôte invalide : {e}")
+        sys.exit(1)
 
 
 def signal_handler(sig, frame):
@@ -62,7 +73,7 @@ def port_scanner(target, port):
             if result == 0:  # 0 = connexion réussie
                 with lock:  # Protection de la section critique (ajout du port ouvert dans la liste)
                     openned_ports.append(port)
-                print(f"Port {port} ouvert")
+                print(f"---> Port {port} ouvert")
                 return port # Si le port est ouvert, on retourne son numéro
             return None # Si le port est fermé, on retourne None
         except Exception:
@@ -116,6 +127,7 @@ def main():
     """Fonction principale du programme."""
     # Récupération et validation des arguments passés en ligne de commande
     target = validate_arguments()
+    validate_hostname(target) 
     
     # Configuration du gestionnaire de signal
     signal.signal(signal.SIGINT, signal_handler)

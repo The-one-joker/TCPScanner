@@ -11,7 +11,7 @@ import sys
 if len(sys.argv) != 2:
     print("Usage: python main.py <adresse_ip or hostname>")
     print("Exemple: python simple_scanner.py 192.168.1.1")
-    print("Exemple: python simple_scanner.py google.com")
+    print("Exemple: python simple_scanner.py Google.com")
     sys.exit(1)
 
 #Fonction pour vérifier que le nom d'hôte et l'IP sont valide
@@ -41,7 +41,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 # Scanne
-for port in range(1, target):
+for port in range(1, 1023):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.settimeout(0.25)
         try:
